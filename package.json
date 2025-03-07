@@ -1,0 +1,39 @@
+{
+  "name": "eusate-chatbot-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "eusate-chatbot.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" ",
+    "prepare": "husky",
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EUSATE/eusate-chatbot-core.git"
+  },
+  "keywords": [
+    "chatbot"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EUSATE/eusate-chatbot-core/issues"
+  },
+  "homepage": "https://github.com/EUSATE/eusate-chatbot-core#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.3",
+    "rollup": "^4.34.9",
+    "typescript": "^5.8.2"
+  }
+}
