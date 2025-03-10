@@ -2,44 +2,77 @@ class ChatbotUI {
   private readonly container: HTMLDivElement
   private readonly fabIframe: HTMLIFrameElement
   private readonly chatIframe: HTMLIFrameElement
+  private readonly fabIcon: HTMLSpanElement
+  private readonly fab: HTMLButtonElement
 
   constructor() {
     this.container = document.createElement('div')
+    this.fabIframe = document.createElement('iframe')
+    this.chatIframe = document.createElement('iframe')
+    this.fabIcon = document.createElement('span')
+    this.fab = document.createElement('button')
+
+    this.setupContainer()
+    this.setupFabIframe()
+    this.setupChatIframe()
+
+    document.body.appendChild(this.container)
+
+    this.loadFabButton()
+
+    window.addEventListener(
+      'message',
+      (evt) => {
+        if (evt.origin !== 'http://localhost:3000') return
+        if (evt.data.action !== 'closeChat') return
+        this.closeChatFrame()
+      },
+      false,
+    )
+  }
+
+  private setupContainer = () => {
     this.container.id = 'chat-widget-container'
     this.container.style.position = 'fixed'
     this.container.style.bottom = '20px'
     this.container.style.right = '20px'
     this.container.style.zIndex = '10000'
-    // this.container.style.maxWidth = '100%'
-    // this.container.style.maxHeight = '100%'
+  }
 
-    document.body.appendChild(this.container)
-
-    this.fabIframe = document.createElement('iframe')
+  private setupFabIframe = () => {
     this.fabIframe.id = 'chat-widget-fab'
     this.fabIframe.style.position = 'relative'
+    this.fabIframe.style.zIndex = '1'
     this.fabIframe.style.height = '80px'
     this.fabIframe.style.width = '80px'
     this.fabIframe.style.border = 'none'
     this.fabIframe.style.background = 'transparent'
+    this.fabIframe.style.borderRadius = '100%'
+    this.fabIframe.style.boxShadow = '0px 40px 72px -12px #10192824'
 
     this.container.appendChild(this.fabIframe)
+  }
 
-    this.chatIframe = document.createElement('iframe')
+  private setupChatIframe = () => {
     this.chatIframe.id = 'chat-widget'
+    this.chatIframe.src = 'http://localhost:3000/'
     this.chatIframe.style.position = 'absolute'
     this.chatIframe.style.bottom = '100px'
     this.chatIframe.style.right = '0px'
-    this.chatIframe.style.width = '360px'
-    this.chatIframe.style.height = '535px'
-    this.chatIframe.style.display = 'none'
-    // should remove
+    this.chatIframe.style.width = '525px'
+    this.chatIframe.style.height = '780px'
+    this.chatIframe.style.transform = 'scale(0)'
+    this.chatIframe.style.opacity = '0'
+    this.chatIframe.style.transitionProperty =
+      'transform, translate, scale, rotate, opacity'
+    this.chatIframe.style.transitionTimingFunction =
+      'cubic-bezier(0.4, 0, 0.2, 1)'
+    this.chatIframe.style.transitionDuration = '500ms'
     this.chatIframe.style.border = 'none'
-    this.chatIframe.style.background = '#0A0A0A'
+    this.chatIframe.style.transformOrigin = 'bottom right'
+    this.chatIframe.style.boxShadow = '0px 40px 72px -12px #10192824'
 
     this.container.appendChild(this.chatIframe)
-
-    this.loadFabButton()
   }
 
   private loadFabButton = () => {
@@ -74,29 +107,46 @@ class ChatbotUI {
       'm-0 flex justify-center items-center w-full h-full outline-none border-none'
 
     //   button
-    const button = doc.createElement('button')
-    button.id = 'eusate-chatbot-fab-btn'
-    button.className =
+    this.fab.id = 'eusate-chatbot-fab-btn'
+    this.fab.className =
       'h-20 w-20 bg-[#0A0A0A] rounded-full cursor-pointer text-white flex items-center justify-center scale-95 hover:scale-100 active:scale-80 transition-transform'
 
     // button icon
-    const icon = doc.createElement('span')
-    icon.id = 'button-icon'
-    icon.className =
-      'icon-eusate text-4xl shadow-[0px_40px_72px_-12px_#10192824]'
+    this.fabIcon.id = 'button-icon'
+    this.fabIcon.className = 'icon-eusate text-4xl'
 
-    button.appendChild(icon)
-    body.appendChild(button)
+    this.fab.appendChild(this.fabIcon)
+    body.appendChild(this.fab)
     doc.documentElement.appendChild(body)
 
-    button.addEventListener('click', () => {
-      console.log('open chat view')
-      //   change the icon to chevron down
-      icon.classList.add('icon-chevron-down')
-      icon.classList.remove('icon-eusate')
-      //   change the visibility of the chat screen to visible
-      this.chatIframe.style.display = 'block'
-    })
+    this.fab.addEventListener('click', this.toggleChatFrame, false)
+  }
+
+  private closeChatFrame = () => {
+    this.chatIframe.style.transform = 'scale(0)'
+    this.chatIframe.style.opacity = '0'
+
+    //   change the icon to chevron down
+    this.fabIcon.classList.add('icon-eusate')
+    this.fabIcon.classList.remove('icon-chevron-down')
+    this.fab.classList.remove('!scale-80')
+
+    this.chatIframe.contentWindow?.postMessage({ isChatOpen: false }, '*')
+  }
+
+  private toggleChatFrame = () => {
+    if (this.chatIframe.style.transform === 'scale(1)') {
+      this.closeChatFrame()
+    } else {
+      this.chatIframe.style.transform = 'scale(1)'
+      this.chatIframe.style.opacity = '1'
+
+      this.fabIcon.classList.add('icon-chevron-down')
+      this.fab.classList.add('!scale-80')
+      this.fabIcon.classList.remove('icon-eusate')
+
+      this.chatIframe.contentWindow?.postMessage({ isChatOpen: true }, '*')
+    }
   }
 }
 
