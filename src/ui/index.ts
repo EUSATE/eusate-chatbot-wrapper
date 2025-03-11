@@ -1,3 +1,6 @@
+const CHAT_URL = 'https://eusate-chatbot-core.vercel.app/'
+// const CHAT_URL = 'http://localhost:3000'
+
 class ChatbotUI {
   private readonly container: HTMLDivElement
   private readonly fabIframe: HTMLIFrameElement
@@ -23,7 +26,8 @@ class ChatbotUI {
     window.addEventListener(
       'message',
       (evt) => {
-        if (evt.origin !== 'http://localhost:3000') return
+        console.log(evt.origin)
+        if (evt.origin !== CHAT_URL) return
         if (evt.data.action !== 'closeChat') return
         this.closeChatFrame()
       },
@@ -55,7 +59,7 @@ class ChatbotUI {
 
   private setupChatIframe = () => {
     this.chatIframe.id = 'chat-widget'
-    this.chatIframe.src = 'http://localhost:3000/'
+    this.chatIframe.src = CHAT_URL
     this.chatIframe.style.position = 'absolute'
     this.chatIframe.style.bottom = '100px'
     this.chatIframe.style.right = '0px'
