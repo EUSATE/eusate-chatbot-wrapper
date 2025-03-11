@@ -1,4 +1,7 @@
-const CHAT_URL = 'https://eusate-chatbot-core.vercel.app/'
+const TAILWIND_URL = 'https://unpkg.com/@tailwindcss/browser@4'
+const ICOMOON_URL =
+  'https://cdn.jsdelivr.net/gh/eusate/eusate-chatbot-core@9e5ebf8/src/assets/icomoon/style.css'
+const CHAT_URL = 'https://eusate-chatbot-core.vercel.app'
 // const CHAT_URL = 'http://localhost:3000'
 
 class ChatbotUI {
@@ -91,13 +94,12 @@ class ChatbotUI {
     }
 
     const icomoonLink = doc.createElement('link')
-    icomoonLink.href =
-      'https://cdn.jsdelivr.net/gh/eusate/eusate-chatbot-core@9e5ebf8/src/assets/icomoon/style.css'
+    icomoonLink.href = ICOMOON_URL
     icomoonLink.rel = 'stylesheet'
     head.appendChild(icomoonLink)
 
     const tailwindScript = doc.createElement('script')
-    tailwindScript.src = 'https://unpkg.com/@tailwindcss/browser@4'
+    tailwindScript.src = TAILWIND_URL
     head.appendChild(tailwindScript)
 
     doc.documentElement.appendChild(head)
