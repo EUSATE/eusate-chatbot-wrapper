@@ -3,8 +3,8 @@ import { MessageObjectType, POST_MESSAGE_TYPES } from './utils'
 const TAILWIND_URL = 'https://unpkg.com/@tailwindcss/browser@4'
 const ICOMOON_URL =
   'https://cdn.jsdelivr.net/gh/eusate/eusate-chatbot-core@latest/src/assets/icomoon/style.css'
-// const CHAT_URL = 'https://eusate-chatbot-core.vercel.app'
-const CHAT_URL = 'http://localhost:3000'
+const CHAT_URL = 'https://eusate-chatbot-core.vercel.app'
+// const CHAT_URL = 'http://localhost:3000'
 
 class ChatbotUI {
   private static container: HTMLDivElement
