@@ -5,14 +5,12 @@ declare class ChatbotUI {
     private static fabIcon;
     private static fab;
     private static apiKey;
-    private static userId?;
     private static onReady?;
     private static onInitError?;
     private static chatInitialized;
     private static isDestroyed;
     constructor(config: {
         apiKey: string;
-        userId?: string;
         onReady: () => void;
         onInitError: () => void;
     });
