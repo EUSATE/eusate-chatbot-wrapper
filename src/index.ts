@@ -3,8 +3,8 @@ import { MessageObjectType, POST_MESSAGE_TYPES } from './utils'
 const TAILWIND_URL = 'https://unpkg.com/@tailwindcss/browser@4'
 const ICOMOON_URL =
   'https://cdn.jsdelivr.net/gh/eusate/eusate-chatbot-core@latest/src/assets/icomoon/style.css'
-const CHAT_URL = 'https://eusate-chatbot-core.vercel.app'
-
+// const CHAT_URL = 'https://eusate-chatbot-core.vercel.app'
+const CHAT_URL = 'http://localhost:3000'
 class ChatbotUI {
   private static container: HTMLDivElement
   private static fabIframe: HTMLIFrameElement
@@ -12,7 +12,6 @@ class ChatbotUI {
   private static fabIcon: HTMLSpanElement
   private static fab: HTMLButtonElement
   private static apiKey: string
-  private static userId?: string
   private static onReady?: () => void
   private static onInitError?: () => void
   private static chatInitialized: boolean = false
@@ -20,7 +19,6 @@ class ChatbotUI {
 
   constructor(config: {
     apiKey: string
-    userId?: string
     onReady: () => void
     onInitError: () => void
   }) {
@@ -30,7 +28,6 @@ class ChatbotUI {
     ChatbotUI.fabIcon = document.createElement('span')
     ChatbotUI.fab = document.createElement('button')
     ChatbotUI.apiKey = config.apiKey
-    ChatbotUI.userId = config.userId
     ChatbotUI.onReady = config.onReady
     ChatbotUI.onInitError = config.onInitError
 
@@ -98,7 +95,6 @@ class ChatbotUI {
           type: POST_MESSAGE_TYPES.INIT,
           data: {
             apiKey: this.apiKey,
-            userId: this.userId,
           },
           timestamp: Date.now(),
         }
