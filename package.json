@@ -2,13 +2,22 @@
   "name": "@eusate/messenger-sdk",
   "version": "0.1.0",
   "description": "Eusate Messenger SDK - Embeddable AI-powered customer support",
-  "main": "dist/eusate-sdk.min.js",
-  "module": "dist/eusate-sdk.min.esm.js",
+  "main": "dist/eusate-sdk.esm.js",
+  "module": "dist/eusate-sdk.esm.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/eusate-sdk.esm.js",
+      "require": "./dist/eusate-sdk.esm.js",
+      "default": "./dist/eusate-sdk.esm.js"
+    }
+  },
   "scripts": {
     "clean": "rm -rf dist",
     "build": "npm run clean && rollup -c --environment NODE_ENV:production",
@@ -18,10 +27,15 @@
     "lint:fix": "npm run lint -- --fix",
     "type-check": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" ",
-    "prepare": "husky",
-    "prepublishOnly": "npm run build",
+    "prerelease": "node scripts/pre-release.js",
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major",
     "version": "npm run build && git add -A dist",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "prepublishOnly": "npm run lint && npm run type-check && npm run build",
+    "prepare": "husky",
+    "size": "ls -lah dist/"
   },
   "repository": {
     "type": "git",
@@ -32,7 +46,7 @@
     "sdk",
     "customer-support"
   ],
-  "author": "",
+  "author": "EUSATE",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/EUSATE/eusate-messenger-sdk/issues"
@@ -42,8 +56,10 @@
     "@eslint/js": "^9.36.0",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-replace": "^6.0.2",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
+    "@types/node": "^24.6.1",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-prettier": "^5.2.3",

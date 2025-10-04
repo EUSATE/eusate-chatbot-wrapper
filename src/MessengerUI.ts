@@ -23,7 +23,7 @@ class EusateMessenger {
 
   private fabClickHandler: (() => void) | null = null
   private messageHandler: ((evt: MessageEvent) => void) | null = null
-  private initTimeout: number | null = null
+  private initTimeout: NodeJS.Timeout | null = null
 
   private constructor(config: MessengerConfig) {
     this.apiKey = config?.apiKey.trim()
@@ -40,6 +40,9 @@ class EusateMessenger {
   }
 
   static getInstance(config?: MessengerConfig): EusateMessenger {
+    if (typeof window === 'undefined') {
+      throw new Error('[Eusate] Cannot create instance on server-side')
+    }
     if (EusateMessenger.instance) {
       if (config) {
         console.warn(ERROR_MESSAGES.ALREADY_INIT)
@@ -253,11 +256,6 @@ class EusateMessenger {
     icomoonLink.rel = 'stylesheet'
     head.appendChild(icomoonLink)
 
-    // tailwind
-    const tailwindScript = doc.createElement('script')
-    tailwindScript.src = PROD_CONFIG.TAILWIND_URL
-    head.appendChild(tailwindScript)
-
     // to avoid multiple head tags in the DOM
     if (!doc.head) {
       doc.documentElement.appendChild(head)
@@ -315,7 +313,10 @@ class EusateMessenger {
 
     // button icon
     this.fabIcon.id = 'button-icon'
-    this.fabIcon.className = 'icon-eusate text-4xl'
+    this.fabIcon.className = 'icon-eusate'
+    this.fabIcon.style.cssText = `
+      font-size: 36px;
+    `
 
     this.fab.appendChild(this.fabIcon)
     body.appendChild(this.fab)

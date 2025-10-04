@@ -1,9 +1,11 @@
 export const PROD_CONFIG = {
-  TAILWIND_URL: 'https://unpkg.com/@tailwindcss/browser@4',
   ICOMOON_URL:
     'https://cdn.jsdelivr.net/gh/eusate/eusate-chatbot-core@latest/src/assets/icomoon/style.css',
-  CHAT_URL: 'https://eusate-chatbot-core.vercel.app',
-  // CHAT_URL : 'http://localhost:3000'
+  CHAT_URL: 'https://chat.dev.eusate.com',
+  // CHAT_URL : 'http://localhost:3000',
+  VERSION: __VERSION__,
+  ENV: process.env.NODE_ENV,
+  DEBUG: process.env.NODE_ENV === 'development',
 } as const
 
 export const POST_MESSAGE_TYPES = {

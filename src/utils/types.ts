@@ -26,4 +26,5 @@ export interface EusateMessengerSDK {
   destroy: () => void
   isInitialized: () => boolean
   isOpen: () => boolean
+  version: string
 }

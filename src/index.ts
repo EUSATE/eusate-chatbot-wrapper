@@ -1,14 +1,25 @@
 import EusateMessenger from './MessengerUI'
-import { ERROR_MESSAGES, EusateMessengerSDK, MessengerConfig } from './utils'
+import {
+  ERROR_MESSAGES,
+  EusateMessengerSDK,
+  MessengerConfig,
+  PROD_CONFIG,
+} from './utils'
 
 declare global {
   interface Window {
-    Eusate: EusateMessengerSDK
+    Eusate: object
   }
 }
 
 const Eusate: EusateMessengerSDK = {
   init: (config: string | MessengerConfig) => {
+    if (typeof window === 'undefined') {
+      console.warn(
+        '[Eusate] Cannot initialize on server-side. Will initialize when browser loads.',
+      )
+      return
+    }
     try {
       const configuration: MessengerConfig =
         typeof config === 'string' ? { apiKey: config } : config
@@ -20,6 +31,7 @@ const Eusate: EusateMessengerSDK = {
     }
   },
   open: () => {
+    if (typeof window === 'undefined') return
     try {
       EusateMessenger.getInstance().open()
     } catch (error) {
@@ -27,6 +39,7 @@ const Eusate: EusateMessengerSDK = {
     }
   },
   close: () => {
+    if (typeof window === 'undefined') return
     try {
       EusateMessenger.getInstance().close()
     } catch (error) {
@@ -34,6 +47,7 @@ const Eusate: EusateMessengerSDK = {
     }
   },
   destroy: () => {
+    if (typeof window === 'undefined') return
     try {
       EusateMessenger.getInstance().destroy()
     } catch (error) {
@@ -41,6 +55,7 @@ const Eusate: EusateMessengerSDK = {
     }
   },
   isInitialized: () => {
+    if (typeof window === 'undefined') return false
     try {
       return EusateMessenger.getInstance().isInitialized()
     } catch {
@@ -48,14 +63,19 @@ const Eusate: EusateMessengerSDK = {
     }
   },
   isOpen: () => {
+    if (typeof window === 'undefined') return false
     try {
       return EusateMessenger.getInstance().isOpen()
     } catch {
       return false
     }
   },
+  version: PROD_CONFIG.VERSION,
 }
 
-window.Eusate = Eusate
+if (typeof window !== 'undefined') {
+  console.log('window', window)
+  window.Eusate = Eusate
+}
 
 export default Eusate
