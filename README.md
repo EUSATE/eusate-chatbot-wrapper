@@ -16,11 +16,11 @@ Eusate Messenger SDK lets you add intelligent customer support to your website i
 - 🎯 **Framework Agnostic** - Works with Next.js, React, Vue, Angular, and plain HTML
 - 🔒 **Secure** - API key authentication with strict origin validation
 - 📱 **Responsive** - Mobile-first design that works everywhere
-- 🎨 **Customizable** - Match your brand with custom styling (coming soon)
 - ⚡ **SSR Safe** - Full Next.js App Router support out of the box
 - 🔧 **TypeScript** - Complete type definitions included
 - 🌐 **CDN Ready** - Use via npm or direct script tag
 - ♿ **Accessible** - WCAG compliant with keyboard navigation
+- 🎨 **Customizable** - Match your brand with custom styling (coming soon)
 
 ---
 
@@ -40,8 +40,18 @@ yarn add @eusate/messenger-sdk
 
 ### Via CDN
 
+#### Auto-updating (Recommended)
+
 ```html
-<script src="https://cdn.eusate.com/messenger/v1/eusate-sdk.min.js"></script>
+<!-- Automatically gets bug fixes and new features within v0.x.x -->
+<script src="https://cdn.eusate.com/messenger/v0/eusate-sdk.min.js"></script>
+```
+
+#### Pinned Version (Maximum Stability)
+
+```html
+<!-- Never changes - you control when to update -->
+<script src="https://cdn.eusate.com/messenger/v0.1.0/eusate-sdk.min.js"></script>
 ```
 
 ---

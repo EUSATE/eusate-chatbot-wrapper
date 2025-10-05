@@ -1,0 +1,60 @@
+name: Deploy to CDN
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          MAJOR_VERSION=$(echo $VERSION | cut -d. -f1)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "major=$MAJOR_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Upload to S3
+        run: |
+          # Upload exact version
+          aws s3 cp dist/eusate-sdk.min.js \
+            s3://${{ secrets.CDN_BUCKET }}/messenger/v${{ steps.version.outputs.version }}/eusate-sdk.min.js \
+            --content-type "application/javascript" \
+            --cache-control "public, max-age=31536000, immutable" \
+            --acl public-read
+
+          # Upload major version
+          aws s3 cp dist/eusate-sdk.min.js \
+            s3://${{ secrets.CDN_BUCKET }}/messenger/v${{ steps.version.outputs.major }}/eusate-sdk.min.js \
+            --content-type "application/javascript" \
+            --cache-control "public, max-age=3600" \
+            --acl public-read
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} \
+            --paths "/messenger/v${{ steps.version.outputs.major }}/*"
