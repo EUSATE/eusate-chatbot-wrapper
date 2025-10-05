@@ -52,15 +52,15 @@ npm ci
 npm run prerelease
 ```
 
-If checks fail, fix issues and start from [Manual Testing](https://github.com/EUSATE/eusate-chatbot/blob/main/docs/RELEASING.md#manual-testing)
+If checks fail, fix issues and start from [Manual Testing](https://github.com/EUSATE/eusate-messenger-sdk/blob/main/docs/RELEASING.md#manual-testing)
 
 #### 3. Update CHANGELOG.md
 
-- [] Open [CHANGELOG.md](https://github.com/EUSATE/eusate-chatbot/blob/main/CHANGELOG.md)
+- [] Open [CHANGELOG.md](https://github.com/EUSATE/eusate-messenger-sdk/blob/main/CHANGELOG.md)
 - [] Move items from [Unreleased] section to new version section
 - [] Add release date
 - [] Add version comparison link at bottom
-- [] Determine version number according to [VERSIONING.md](https://github.com/EUSATE/eusate-chatbot/blob/main/docs/VERSIONING.md)
+- [] Determine version number according to [VERSIONING.md](https://github.com/EUSATE/eusate-messenger-sdk/blob/main/docs/VERSIONING.md)
 - [] Commit CHANGELOG: `git add CHANGELOG.md && git commit -m "doc(): update changelog for vX.Y.Z"` and push.
 
 ##### Example
@@ -84,7 +84,7 @@ If checks fail, fix issues and start from [Manual Testing](https://github.com/EU
 
 #### 4. Run Version script
 
-Run the appropriate version script according to [VERSIONING.md](https://github.com/EUSATE/eusate-chatbot/blob/main/docs/VERSIONING.md)
+Run the appropriate version script according to [VERSIONING.md](https://github.com/EUSATE/eusate-messenger-sdk/blob/main/docs/VERSIONING.md)
 
 ##### What this does automatically:
 

@@ -44,14 +44,20 @@
   "keywords": [
     "messenger",
     "sdk",
-    "customer-support"
+    "customer-support",
+    "chat",
+    "chatbot",
+    "widget",
+    "support",
+    "ai",
+    "typescript"
   ],
-  "author": "EUSATE",
+  "author": "EUSATE <dev@eusate.com> (https://eusate.com)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/EUSATE/eusate-messenger-sdk/issues"
   },
-  "homepage": "https://github.com/EUSATE/eusate-messenger-sdk#readme",
+  "homepage": "https://docs.eusate.com/modules/helpdesk/sdk",
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@rollup/plugin-commonjs": "^28.0.3",

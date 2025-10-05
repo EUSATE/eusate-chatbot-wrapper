@@ -1,6 +1,6 @@
 export const PROD_CONFIG = {
   ICOMOON_URL:
-    'https://cdn.jsdelivr.net/gh/eusate/eusate-chatbot-core@latest/src/assets/icomoon/style.css',
+    'https://cdn.jsdelivr.net/gh/eusate/eusate-messenger-sdk@latest/src/assets/icomoon/style.css',
   CHAT_URL: 'https://chat.dev.eusate.com',
   // CHAT_URL : 'http://localhost:3000',
   VERSION: __VERSION__,
