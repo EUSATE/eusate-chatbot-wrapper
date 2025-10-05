@@ -21,4 +21,6 @@ export interface EusateMessengerSDK {
     destroy: () => void;
     isInitialized: () => boolean;
     isOpen: () => boolean;
+    version: string;
 }
+//# sourceMappingURL=types.d.ts.map

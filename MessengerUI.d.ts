@@ -35,3 +35,4 @@ declare class EusateMessenger {
     destroy: () => void;
 }
 export default EusateMessenger;
+//# sourceMappingURL=MessengerUI.d.ts.map
