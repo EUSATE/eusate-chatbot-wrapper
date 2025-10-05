@@ -26,7 +26,7 @@ try {
 // Check 2: Tests pass (when you add them later)
 console.log('✓ Checking tests...')
 try {
-  // execSync('npm test', { stdio: 'inherit' })
+  execSync('npm test', { stdio: 'inherit' })
   console.log('  ⏭️  No tests yet (skipping)\n')
 } catch (error) {
   console.error('❌ Tests failed!\n')

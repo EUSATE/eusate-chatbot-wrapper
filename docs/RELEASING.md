@@ -1,23 +1,146 @@
 # Release Process
 
-## Semantic Versioning
+## Overview
 
-We follow [Semantic Versioning](https://semver.org/):
+This documentation assumes that the update that is to be published is already done. Publishing an update to this package should follow these steps outlined in the checklist.
 
-- **PATCH** (0.1.0 → 0.1.1): Bug fixes, no API changes
-- **MINOR** (0.1.0 → 0.2.0): New features, backward compatible
-- **MAJOR** (0.1.0 → 1.0.0): Breaking changes
+### Release Checklist
 
-## Before Releasing
+#### 1. Manual Testing
 
-1. **Update CHANGELOG.md**
+Test the SDK in multiple environments:
 
-   - Move items from `[Unreleased]` to new version section
-   - Add release date
-   - Add comparison link at bottom
-
-2. **Run prerelease script to ensure you are good to go**
+##### using npm (For React and Next.js applications)
 
 ```bash
-   npm run prerelease
+# Run this command on @eusate/messenger-sdk's terminal to create a symbolic link to the project locally
+npm link
+
+# Go to your test project's terminal and run this command
+npm link @eusate/messenger-sdk
+
+# Start the app in development mode and use the package as written in the usage documentation
+npm run dev # or npm start for react applications
 ```
+
+##### Using CDN link
+
+For now, you can create a folder called ui in this same project (the folder is noted in the .gitignore file it will not be tracked by git). Create an html template page and using this script at the bottom of the `<body>` tag:
+
+```html
+<script src="/dist/eusate-sdk.min.js"></script>
+```
+
+##### Manual test checklist
+
+For both test cases, ensure to test for these:
+
+- [] Verify initialization works
+- [] Verify open/close works
+- [] Verify destroy
+- [] Verify no console errors
+
+When you are done testing and we are good to go, ensure that chatbot-core project is deployed. Also, ensure that the update is properly committed and you have a clean tree before moving forward.
+
+#### 2. Clean Install & Pre-release checks
+
+```bash
+# do a clean install on all project dependency.
+npm ci
+
+# Run the pre-release check
+npm run prerelease
+```
+
+If checks fail, fix issues and start from [Manual Testing](https://github.com/EUSATE/eusate-chatbot/blob/main/docs/RELEASING.md#manual-testing)
+
+#### 3. Update CHANGELOG.md
+
+- [] Open [CHANGELOG.md](https://github.com/EUSATE/eusate-chatbot/blob/main/CHANGELOG.md)
+- [] Move items from [Unreleased] section to new version section
+- [] Add release date
+- [] Add version comparison link at bottom
+- [] Determine version number according to [VERSIONING.md](https://github.com/EUSATE/eusate-chatbot/blob/main/docs/VERSIONING.md)
+- [] Commit CHANGELOG: `git add CHANGELOG.md && git commit -m "doc(): update changelog for vX.Y.Z"` and push.
+
+##### Example
+
+```markdown
+## [Unreleased]
+
+## [0.1.1] - 2025-10-04
+
+### Fixed
+
+- Fixed memory leak in destroy method
+- Corrected TypeScript type definitions
+
+### Added
+
+- Added initialization timeout handling
+
+[0.1.1]: https://github.com/EUSATE/eusate-messenger-sdk/compare/v0.1.0...v0.1.1
+```
+
+#### 4. Run Version script
+
+Run the appropriate version script according to [VERSIONING.md](https://github.com/EUSATE/eusate-chatbot/blob/main/docs/VERSIONING.md)
+
+##### What this does automatically:
+
+1. ✅ Runs pre-release checks again
+2. ✅ Bumps version in package.json
+3. ✅ Rebuilds with new version
+4. ✅ Creates git commit: "Release vX.Y.Z"
+5. ✅ Creates git tag: vX.Y.Z
+6. ✅ Pushes commit and tag to GitHub (via postversion hook)
+
+#### 5. Create Github Release
+
+- [] Verify the newly created tag on https://github.com/EUSATE/eusate-messenger-sdk/tags
+- [] Go to: https://github.com/EUSATE/eusate-messenger-sdk/releases/new
+- [] Choose tag: Select the tag you just created (vX.Y.Z)
+- [] Release title: vX.Y.Z
+- [] Description: Copy the changes from CHANGELOG.md for this version
+- [] Click "Publish release"
+
+or use Github CLI:
+
+```bash
+gh release create vX.Y.Z --notes "$(sed -n '/## \[X.Y.Z\]/,/## \[/p' CHANGELOG.md | head -n -1)"
+```
+
+#### 6. Publish to NPM
+
+```bash
+# This automatically runs prepublishOnly (lint, type-check, build)
+npm publish
+```
+
+Note: You may be prompted for an OTP (one-time password) from your authenticator app.
+
+##### What this does automatically:
+
+1. ✅ Runs prepublishOnly hook (lint, type-check, build)
+2. ✅ Packages the dist/ folder
+3. ✅ Uploads to NPM registry
+
+#### 7. Verify Publication
+
+```bash
+# Check package is live
+npm view @eusate/messenger-sdk
+
+# Check version is listed
+npm view @eusate/messenger-sdk versions
+
+# Test installation
+npm install @eusate/messenger-sdk@latest
+```
+
+Visit: https://www.npmjs.com/package/@eusate/messenger-sdk
+
+#### 8. Post-Release
+
+- [] Update public documentation
+- [] Send a release note to the team
