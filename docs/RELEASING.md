@@ -35,10 +35,10 @@ For now, you can create a folder called ui in this same project (the folder is n
 
 For both test cases, ensure to test for these:
 
-- [] Verify initialization works
-- [] Verify open/close works
-- [] Verify destroy
-- [] Verify no console errors
+- [ ] Verify initialization works
+- [ ] Verify open/close works
+- [ ] Verify destroy
+- [ ] Verify no console errors
 
 When you are done testing and we are good to go, ensure that chatbot-core project is deployed. Also, ensure that the update is properly committed and you have a clean tree before moving forward.
 
@@ -56,12 +56,12 @@ If checks fail, fix issues and start from [Manual Testing](https://github.com/EU
 
 #### 3. Update CHANGELOG.md
 
-- [] Open [CHANGELOG.md](https://github.com/EUSATE/eusate-messenger-sdk/blob/main/CHANGELOG.md)
-- [] Move items from [Unreleased] section to new version section
-- [] Add release date
-- [] Add version comparison link at bottom
-- [] Determine version number according to [VERSIONING.md](https://github.com/EUSATE/eusate-messenger-sdk/blob/main/docs/VERSIONING.md)
-- [] Commit CHANGELOG: `git add CHANGELOG.md && git commit -m "doc(): update changelog for vX.Y.Z"` and push.
+- [ ] Open [CHANGELOG.md](https://github.com/EUSATE/eusate-messenger-sdk/blob/main/CHANGELOG.md)
+- [ ] Move items from [Unreleased] section to new version section
+- [ ] Add release date
+- [ ] Add version comparison link at bottom
+- [ ] Determine version number according to [VERSIONING.md](https://github.com/EUSATE/eusate-messenger-sdk/blob/main/docs/VERSIONING.md)
+- [ ] Commit CHANGELOG: `git add CHANGELOG.md && git commit -m "doc(): update changelog for vX.Y.Z"` and push.
 
 ##### Example
 
@@ -88,21 +88,21 @@ Run the appropriate version script according to [VERSIONING.md](https://github.c
 
 ##### What this does automatically:
 
-1. ✅ Runs pre-release checks again
-2. ✅ Bumps version in package.json
-3. ✅ Rebuilds with new version
-4. ✅ Creates git commit: "Release vX.Y.Z"
-5. ✅ Creates git tag: vX.Y.Z
-6. ✅ Pushes commit and tag to GitHub (via postversion hook)
+1. [x] Runs pre-release checks again
+2. [x] Bumps version in package.json
+3. [x] Rebuilds with new version
+4. [x] Creates git commit: "Release vX.Y.Z"
+5. [x] Creates git tag: vX.Y.Z
+6. [x] Pushes commit and tag to GitHub (via postversion hook)
 
 #### 5. Create Github Release
 
-- [] Verify the newly created tag on https://github.com/EUSATE/eusate-messenger-sdk/tags
-- [] Go to: https://github.com/EUSATE/eusate-messenger-sdk/releases/new
-- [] Choose tag: Select the tag you just created (vX.Y.Z)
-- [] Release title: vX.Y.Z
-- [] Description: Copy the changes from CHANGELOG.md for this version
-- [] Click "Publish release"
+- [ ] Verify the newly created tag on https://github.com/EUSATE/eusate-messenger-sdk/tags
+- [ ] Go to: https://github.com/EUSATE/eusate-messenger-sdk/releases/new
+- [ ] Choose tag: Select the tag you just created (vX.Y.Z)
+- [ ] Release title: vX.Y.Z
+- [ ] Description: Copy the changes from CHANGELOG.md for this version
+- [ ] Click "Publish release"
 
 or use Github CLI:
 
@@ -121,9 +121,9 @@ Note: You may be prompted for an OTP (one-time password) from your authenticator
 
 ##### What this does automatically:
 
-1. ✅ Runs prepublishOnly hook (lint, type-check, build)
-2. ✅ Packages the dist/ folder
-3. ✅ Uploads to NPM registry
+1. [x] Runs prepublishOnly hook (lint, type-check, build)
+2. [x] Packages the dist/ folder
+3. [x] Uploads to NPM registry
 
 #### 7. Verify Publication
 
@@ -142,5 +142,5 @@ Visit: https://www.npmjs.com/package/@eusate/messenger-sdk
 
 #### 8. Post-Release
 
-- [] Update public documentation
-- [] Send a release note to the team
+- [ ] Update public documentation
+- [ ] Send a release note to the team
