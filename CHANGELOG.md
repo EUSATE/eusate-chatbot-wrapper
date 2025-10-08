@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Chat url to target production
+
 ## [0.1.1] - 2025-10-08
 
 #### Added

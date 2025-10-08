@@ -1,6 +1,6 @@
 export declare const PROD_CONFIG: {
     readonly ICOMOON_URL: "https://cdn.jsdelivr.net/gh/eusate/eusate-messenger-sdk@latest/src/assets/icomoon/style.css";
-    readonly CHAT_URL: "https://chat.dev.eusate.com";
+    readonly CHAT_URL: "https://chat.eusate.com";
     readonly VERSION: string;
     readonly ENV: string | undefined;
     readonly DEBUG: boolean;
