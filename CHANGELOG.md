@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Chat url to target production
 
+### Fixes
+
+- Github action error due to ACLs fixed.
+
 ## [0.1.1] - 2025-10-08
 
 #### Added
@@ -19,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixes
 
-- Fixed checkbox rendering in docs
+- Checkbox now rendering correctly in docs
 
 ## [0.1.0] - 2025-10-05
 
